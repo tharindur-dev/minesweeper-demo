@@ -56,7 +56,7 @@ public class BoardTest {
         Board  board = new Board(4, 4);
         board.placeMines(3);
         assertEquals(3, board.getTotalMines(), "Total mines should be 3");
-        assertEquals(16, board.getTotalUncoveredCells(), "Total uncovered cells should be 16");
+        assertEquals(16, board.getTotalCoveredCells(), "Total uncovered cells should be 16");
     }
 
     @Test

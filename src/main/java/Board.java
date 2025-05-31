@@ -8,7 +8,7 @@ public class Board {
     private int cols;
     private Cell[][] cells;
     private int totalMines;
-    private int totalUncoveredCells;
+    private int totalCoveredCells;
 
     public Board(int rows, int cols) {
         this.rows = rows;
@@ -23,7 +23,7 @@ public class Board {
                 cells[i][j] = new Cell();
             }
         }
-        this.totalUncoveredCells = cells.length * cells[0].length;
+        this.totalCoveredCells = cells.length * cells[0].length;
     }
 
     public Cell getCell(int row, int col) {
@@ -43,7 +43,7 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             board.append((char)(startChar + i)).append(" ");
             for (int j = 0; j < cols; j++) {
-                board.append(cells[i][j].toString()).append(" ");
+                board.append(cells[i][j].toString()).append(" ".repeat(j < 9? 1 : 2));
             }
             board.append("\n");
         }
@@ -57,7 +57,7 @@ public class Board {
             int row = (int) (Math.random() * rows);
             int col = (int) (Math.random() * cols);
             if (!cells[row][col].isHasMine()) {
-                cells[row][col].setHasMine(true);
+                placeMine(row, col);
                 placedMines++;
             }
         }
@@ -95,7 +95,7 @@ public class Board {
 
         if (cell.getAdjacentMines() == 0) {
             cell.setUncovered(true);
-            totalUncoveredCells--;
+            totalCoveredCells--;
             // Uncover adjacent cells recursively
             for (int i = -1; i <= 1; i++) {
                 for (int j = -1; j <= 1; j++) {
@@ -105,14 +105,14 @@ public class Board {
             }
         } else {
             cell.setUncovered(true);
-            totalUncoveredCells--;
+            totalCoveredCells--;
         }
 
         return false;
     }
 
     public boolean isGameWon() {
-        return this.totalMines == this.totalUncoveredCells;
+        return this.totalMines == this.totalCoveredCells;
     }
 
 }
