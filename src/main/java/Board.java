@@ -34,8 +34,14 @@ public class Board {
     }
 
     public String getDisplayString() {
-        StringBuilder board = new StringBuilder();
+        StringBuilder board = new StringBuilder("  ");
+        char startChar = 'A';
+        for (int j = 1; j < cols + 1; j++) {
+            board.append(j).append(" ");
+        }
+        board.append("\n");
         for (int i = 0; i < rows; i++) {
+            board.append((char)(startChar + i)).append(" ");
             for (int j = 0; j < cols; j++) {
                 board.append(cells[i][j].toString()).append(" ");
             }

@@ -15,17 +15,23 @@ public class BoardTest {
     @Test
     public void testGetDisplayString(){
         Board board = new Board(3, 3);
-        String expected = "_ _ _ \n" +
-                          "_ _ _ \n" +
-                          "_ _ _ \n";
+        String expected = """
+                  1 2 3\s
+                A _ _ _\s
+                B _ _ _\s
+                C _ _ _\s
+                """;
         assertEquals(expected, board.getDisplayString());
 
         board.placeMine(0, 0);
         board.getCell(0, 1).setUncovered(true);
         board.getCell(1, 0).setUncovered(true);
-        expected = "_ 1 _ \n" +
-                   "1 _ _ \n" +
-                   "_ _ _ \n";
+        expected = """
+                  1 2 3\s
+                A _ 1 _\s
+                B 1 _ _\s
+                C _ _ _\s
+                """;
 
         assertEquals(expected, board.getDisplayString());
 
@@ -35,10 +41,13 @@ public class BoardTest {
     public void testMinePlacement() {
         Board board = createBoardWithMines();
         uncoverAllCells(board);
-        String expected = "2 * 2 0 \n" +
-                          "3 * 2 0 \n" +
-                          "* 2 1 0 \n" +
-                          "1 1 0 0 \n";
+        String expected = """
+                  1 2 3 4\s
+                A 2 * 2 0\s
+                B 3 * 2 0\s
+                C * 2 1 0\s
+                D 1 1 0 0\s
+                """;
         assertEquals(expected, board.getDisplayString());
     }
 
@@ -64,10 +73,13 @@ public class BoardTest {
         board.uncoverCell(0,0);
 
         String display = board.getDisplayString();
-        String expected = "2 _ _ _ \n" +
-                "_ _ _ _ \n" +
-                "_ _ _ _ \n" +
-                "_ _ _ _ \n";
+        String expected = """
+                  1 2 3 4\s
+                A 2 _ _ _\s
+                B _ _ _ _\s
+                C _ _ _ _\s
+                D _ _ _ _\s
+                """;
 
         assertEquals(expected, display);
     }
@@ -78,10 +90,13 @@ public class BoardTest {
         board.uncoverCell(3, 3);
 
         String display = board.getDisplayString();
-        String expected = "_ _ 2 0 \n" +
-                          "_ _ 2 0 \n" +
-                          "_ 2 1 0 \n" +
-                          "_ 1 0 0 \n";
+        String expected = """
+                  1 2 3 4\s
+                A _ _ 2 0\s
+                B _ _ 2 0\s
+                C _ 2 1 0\s
+                D _ 1 0 0\s
+                """;
 
         assertEquals(expected, display);
     }
